@@ -20,7 +20,10 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
                                                 message: "TODOを追加してください",
                                                 preferredStyle: UIAlertControllerStyle.Alert)
         
-        alertController.addTextFieldWithConfigurationHandler(nil)
+        alertController.addTextFieldWithConfigurationHandler{
+            (todotitle) -> Void in
+            todotitle.placeholder = "<Your TodoTask here>"
+        }
         
         let okAction = UIAlertAction(title: "追加", style: UIAlertActionStyle.Default) {
             (action:UIAlertAction) -> Void in
@@ -28,13 +31,14 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             if let textField = alertController.textFields?.first {
                 
                 let yourTodo = YourTodo()
+        print(textField.text)
                 yourTodo.todoTitle = textField.text
                 self.todoList.insert(yourTodo, atIndex: 0)
                 
                 
                 self.tableView.insertRowsAtIndexPaths(
                     [NSIndexPath(forRow: 0, inSection: 0)],
-                    withRowAnimation: UITableViewRowAnimation.Right)
+                    withRowAnimation: UITableViewRowAnimation.Left)
                 
                 let data :NSData = NSKeyedArchiver.archivedDataWithRootObject(self.todoList)
                 let userDefaults = NSUserDefaults.standardUserDefaults()
@@ -70,27 +74,37 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        
         return todoList.count
     }
     
-    
+    //cellタッップaction
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCellWithIdentifier("todoCell", forIndexPath: indexPath)
         
         let todo = todoList[indexPath.row]
-        
-        cell.textLabel!.text = todo.todoTitle
+        //TOOD
+        cell.accessoryType = UITableViewCellAccessoryType.DetailButton
+    
         if todo.todoDone {
-            cell.accessoryType = UITableViewCellAccessoryType.Checkmark
+            //チェックマーク
+            //TODO
+            //cell.accessoryType = UITableViewCellAccessoryType.Checkmark
+            //取り消し線
+            let attributeString: NSMutableAttributedString =  NSMutableAttributedString(string: todo.todoTitle!)
+            attributeString.addAttribute(NSStrikethroughStyleAttributeName, value: 1, range: NSMakeRange(0, attributeString.length))
+            cell.textLabel!.attributedText = attributeString
+
         } else {
-            cell.accessoryType = UITableViewCellAccessoryType.None
+            //cell.accessoryType = UITableViewCellAccessoryType.None
+            cell.textLabel!.text = todo.todoTitle
+            
         }
+        
         return cell
     }
     
-    
+    //チェックマークをクリックAction
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         let todo = todoList[indexPath.row]
         if todo.todoDone {
@@ -115,7 +129,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         return true
     }
     
-    
+    //削除Action
     func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
         
         if editingStyle == .Delete {
@@ -130,6 +144,57 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             userDefaults.setObject(data, forKey: "todoList")
             userDefaults.synchronize()
         }
+    }
+    
+    //informationボタンタップ処理
+    func tableView(tableView: UITableView, accessoryButtonTappedForRowWithIndexPath indexPath: NSIndexPath) {
+        
+        print(indexPath)
+        let cell = tableView.dequeueReusableCellWithIdentifier("todoCell", forIndexPath: indexPath)
+        
+        let todo = todoList[indexPath.row]
+        print(todo.todoTitle)
+        let alertController = UIAlertController(title: "TODO編集",
+                                                message: "TODOを編集してください",
+                                                preferredStyle: UIAlertControllerStyle.Alert)
+        
+        alertController.addTextFieldWithConfigurationHandler{
+            (todotitle) -> Void in
+            todotitle.text = todo.todoTitle
+        }
+        
+        let okAction = UIAlertAction(title: "追加", style: UIAlertActionStyle.Default) {
+            (action:UIAlertAction) -> Void in
+            
+            if let textField = alertController.textFields?.first {
+                let yourTodo = YourTodo()
+                //cellを削除
+                self.todoList.removeAtIndex(indexPath.row)
+                tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
+                let data :NSData = NSKeyedArchiver.archivedDataWithRootObject(self.todoList)
+                let userDefaults = NSUserDefaults.standardUserDefaults()
+                userDefaults.setObject(data, forKey: "todoList")
+                userDefaults.synchronize()
+                
+                //追加
+                yourTodo.todoTitle = textField.text
+                self.todoList.insert(yourTodo, atIndex: indexPath.row)
+                self.tableView.insertRowsAtIndexPaths([NSIndexPath(forRow: indexPath.row, inSection: 0)],withRowAnimation: UITableViewRowAnimation.Left)
+
+                let cdata1 :NSData = NSKeyedArchiver.archivedDataWithRootObject(self.todoList)
+                let userDefaults1 = NSUserDefaults.standardUserDefaults()
+                userDefaults1.setObject(cdata1, forKey: "todoList")
+                userDefaults1.synchronize()
+            }
+        }
+        
+        alertController.addAction(okAction)
+        
+        let cancelAction = UIAlertAction(title: "キャンセル",
+                                         style: UIAlertActionStyle.Cancel, handler: nil)
+        
+        alertController.addAction(cancelAction)
+        presentViewController(alertController, animated: true, completion: nil)
     }
 }
 
