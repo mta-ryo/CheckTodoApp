@@ -31,7 +31,6 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             if let textField = alertController.textFields?.first {
                 
                 let yourTodo = YourTodo()
-        print(textField.text)
                 yourTodo.todoTitle = textField.text
                 self.todoList.insert(yourTodo, atIndex: 0)
                 
@@ -148,12 +147,10 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     
     //informationボタンタップ処理
     func tableView(tableView: UITableView, accessoryButtonTappedForRowWithIndexPath indexPath: NSIndexPath) {
-        
-        print(indexPath)
-        let cell = tableView.dequeueReusableCellWithIdentifier("todoCell", forIndexPath: indexPath)
+    
+        //let cell = tableView.dequeueReusableCellWithIdentifier("todoCell", forIndexPath: indexPath)
         
         let todo = todoList[indexPath.row]
-        print(todo.todoTitle)
         let alertController = UIAlertController(title: "TODO編集",
                                                 message: "TODOを編集してください",
                                                 preferredStyle: UIAlertControllerStyle.Alert)
@@ -163,11 +160,12 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             todotitle.text = todo.todoTitle
         }
         
-        let okAction = UIAlertAction(title: "追加", style: UIAlertActionStyle.Default) {
+        let okAction = UIAlertAction(title: "変更", style: UIAlertActionStyle.Default) {
             (action:UIAlertAction) -> Void in
             
             if let textField = alertController.textFields?.first {
                 let yourTodo = YourTodo()
+                
                 //cellを削除
                 self.todoList.removeAtIndex(indexPath.row)
                 tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
@@ -178,6 +176,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
                 
                 //追加
                 yourTodo.todoTitle = textField.text
+                yourTodo.todoDone = todo.todoDone
                 self.todoList.insert(yourTodo, atIndex: indexPath.row)
                 self.tableView.insertRowsAtIndexPaths([NSIndexPath(forRow: indexPath.row, inSection: 0)],withRowAnimation: UITableViewRowAnimation.Left)
 
