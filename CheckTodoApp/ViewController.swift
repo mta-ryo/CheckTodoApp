@@ -58,6 +58,8 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     }
     override func viewDidLoad() {
         super.viewDidLoad()
+        tableView.backgroundColor = UIColor(red: 1.0, green: 1.0, blue: 0.7, alpha:1.0)
+        
         let userDefaults = NSUserDefaults.standardUserDefaults()
         if let todoListData = userDefaults.objectForKey("todoList") as? NSData {
             if let storedTodoList = NSKeyedUnarchiver.unarchiveObjectWithData(todoListData) as? [YourTodo] {
@@ -80,6 +82,8 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCellWithIdentifier("todoCell", forIndexPath: indexPath)
+        
+        cell.backgroundColor = UIColor(red: 1.0, green: 1.0, blue: 0.7, alpha:1.0)
         
         let todo = todoList[indexPath.row]
         //TOOD
