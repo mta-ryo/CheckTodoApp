@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		BC2364C51D54E74900CE880D /* blue.png in Resources */ = {isa = PBXBuildFile; fileRef = BC2364C41D54E74900CE880D /* blue.png */; };
+		BC2364C91D54E96400CE880D /* yellow.png in Resources */ = {isa = PBXBuildFile; fileRef = BC2364C81D54E96400CE880D /* yellow.png */; };
+		BC2364CB1D54EA1F00CE880D /* green.png in Resources */ = {isa = PBXBuildFile; fileRef = BC2364CA1D54EA1F00CE880D /* green.png */; };
+		BC2364CD1D54EA6800CE880D /* white.png in Resources */ = {isa = PBXBuildFile; fileRef = BC2364CC1D54EA6800CE880D /* white.png */; };
+		BC904FB71D3C97A000179111 /* SettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC904FB61D3C97A000179111 /* SettingView.swift */; };
 		BCFEB5981D256E3F00B5774A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCFEB5971D256E3F00B5774A /* AppDelegate.swift */; };
 		BCFEB59A1D256E3F00B5774A /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCFEB5991D256E3F00B5774A /* ViewController.swift */; };
 		BCFEB59D1D256E3F00B5774A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BCFEB59B1D256E3F00B5774A /* Main.storyboard */; };
@@ -15,6 +20,11 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		BC2364C41D54E74900CE880D /* blue.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = blue.png; sourceTree = "<group>"; };
+		BC2364C81D54E96400CE880D /* yellow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = yellow.png; sourceTree = "<group>"; };
+		BC2364CA1D54EA1F00CE880D /* green.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = green.png; sourceTree = "<group>"; };
+		BC2364CC1D54EA6800CE880D /* white.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = white.png; sourceTree = "<group>"; };
+		BC904FB61D3C97A000179111 /* SettingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingView.swift; sourceTree = "<group>"; };
 		BCFEB5941D256E3E00B5774A /* CheckTodoApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CheckTodoApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BCFEB5971D256E3F00B5774A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		BCFEB5991D256E3F00B5774A /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -35,6 +45,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		BC9EF9331D4C3B8100343671 /* images */ = {
+			isa = PBXGroup;
+			children = (
+				BC2364C81D54E96400CE880D /* yellow.png */,
+				BC2364CA1D54EA1F00CE880D /* green.png */,
+				BC2364CC1D54EA6800CE880D /* white.png */,
+				BC2364C41D54E74900CE880D /* blue.png */,
+			);
+			name = images;
+			sourceTree = "<group>";
+		};
 		BCFEB58B1D256E3E00B5774A = {
 			isa = PBXGroup;
 			children = (
@@ -54,8 +75,10 @@
 		BCFEB5961D256E3E00B5774A /* CheckTodoApp */ = {
 			isa = PBXGroup;
 			children = (
+				BC9EF9331D4C3B8100343671 /* images */,
 				BCFEB5971D256E3F00B5774A /* AppDelegate.swift */,
 				BCFEB5991D256E3F00B5774A /* ViewController.swift */,
+				BC904FB61D3C97A000179111 /* SettingView.swift */,
 				BCFEB59B1D256E3F00B5774A /* Main.storyboard */,
 				BCFEB59E1D256E3F00B5774A /* Assets.xcassets */,
 				BCFEB5A01D256E3F00B5774A /* LaunchScreen.storyboard */,
@@ -125,6 +148,10 @@
 			files = (
 				BCFEB5A21D256E3F00B5774A /* LaunchScreen.storyboard in Resources */,
 				BCFEB59F1D256E3F00B5774A /* Assets.xcassets in Resources */,
+				BC2364C91D54E96400CE880D /* yellow.png in Resources */,
+				BC2364CB1D54EA1F00CE880D /* green.png in Resources */,
+				BC2364C51D54E74900CE880D /* blue.png in Resources */,
+				BC2364CD1D54EA6800CE880D /* white.png in Resources */,
 				BCFEB59D1D256E3F00B5774A /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -136,6 +163,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BC904FB71D3C97A000179111 /* SettingView.swift in Sources */,
 				BCFEB59A1D256E3F00B5774A /* ViewController.swift in Sources */,
 				BCFEB5981D256E3F00B5774A /* AppDelegate.swift in Sources */,
 			);
@@ -250,7 +278,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "";
 				INFOPLIST_FILE = CheckTodoApp/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = jp.mtaryo.CheckTodoApp;
@@ -264,7 +292,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Ryosuke Morita (M8SEELVUU5)";
+				CODE_SIGN_IDENTITY = "";
 				INFOPLIST_FILE = CheckTodoApp/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = jp.mtaryo.CheckTodoApp;

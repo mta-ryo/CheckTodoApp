@@ -11,8 +11,82 @@ import UIKit
 class ViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
     var todoList = [YourTodo]()
+    
+    var backColar:String = "yellow"
 
     @IBOutlet weak var tableView: UITableView!
+    
+    @IBOutlet weak var todotitle: UINavigationItem!
+    
+    @IBOutlet var topCell: UIView!
+    
+    @IBAction func openSetting(sender: AnyObject) {
+        
+        
+        
+    }
+    
+    
+    override func viewWillAppear(animated: Bool) {
+        //戻るボタンを非表示
+        self.navigationItem.hidesBackButton = true
+        
+//        super.viewDidDisappear(animated)
+//        var appDelegate: AppDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+        
+//        if var hoge = appDelegate.backColar{
+//            backColar = hoge
+//        }
+        
+        
+        super.viewDidLoad()
+//        var hoge:String = backColar
+        
+        //保存してある背景色に変更
+        let userDefaults = NSUserDefaults.standardUserDefaults()
+        if let backGroundColar = userDefaults.objectForKey("backGroundColar"){
+            print("保存した背景色")
+            print(backGroundColar)
+            let strBackGroundColar: String = String(backGroundColar)
+            backColar = strBackGroundColar
+            
+            if(strBackGroundColar == "yellow"){
+                tableView.backgroundColor = UIColor(red: 1.0, green: 1.0, blue: 0.7, alpha:1.0)
+                topCell.backgroundColor  = UIColor(red: 1.0, green: 1.0, blue: 0.7, alpha:1.0)
+                
+            }else if(strBackGroundColar == "blue"){
+                tableView.backgroundColor = UIColor(red: 0.8, green: 1.0, blue: 1.0, alpha:1.0)
+                topCell.backgroundColor  = UIColor(red: 0.8, green: 1.0, blue: 1.0, alpha:1.0)
+                
+            }else if(strBackGroundColar == "white"){
+                tableView.backgroundColor = UIColor(red: 1.0, green: 1.0, blue: 1.0, alpha:1.0)
+                topCell.backgroundColor  = UIColor(red: 1.0, green: 1.0, blue: 1.0, alpha:1.0)
+                
+            }else if(strBackGroundColar == "green"){
+                tableView.backgroundColor = UIColor(red: 0.6431, green: 0.9176, blue: 0, alpha: 1.0)
+                topCell.backgroundColor  = UIColor(red: 1.0, green: 1.0, blue: 0.2, alpha:1.0)
+            }else{
+                tableView.backgroundColor = UIColor(red: 0.5, green: 0.5, blue: 0.5, alpha:1.0)
+                topCell.backgroundColor  = UIColor(red: 1.0, green: 1.0, blue: 0.7, alpha:1.0)
+            }
+        }
+        
+        
+        
+
+        
+        
+//        let userDefaults = NSUserDefaults.standardUserDefaults()
+        if let todoListData = userDefaults.objectForKey("todoList") as? NSData {
+            if let storedTodoList = NSKeyedUnarchiver.unarchiveObjectWithData(todoListData) as? [YourTodo] {
+                todoList.appendContentsOf(storedTodoList)
+            }
+        }
+        
+
+        
+    }
+    
     
     @IBAction func tapAddButton(sender: AnyObject) {
         
@@ -57,15 +131,22 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         
     }
     override func viewDidLoad() {
-        super.viewDidLoad()
-        tableView.backgroundColor = UIColor(red: 1.0, green: 1.0, blue: 0.7, alpha:1.0)
-        
-        let userDefaults = NSUserDefaults.standardUserDefaults()
-        if let todoListData = userDefaults.objectForKey("todoList") as? NSData {
-            if let storedTodoList = NSKeyedUnarchiver.unarchiveObjectWithData(todoListData) as? [YourTodo] {
-                todoList.appendContentsOf(storedTodoList)
-            }
-        }
+    //TODO
+//        print("viewDidLoad")
+//        
+//        
+//        super.viewDidLoad()
+//        var hoge:String = backColar
+//        print(hoge)
+//        
+//        tableView.backgroundColor = UIColor(red: 1.0, green: 1.0, blue: 0.7, alpha:1.0)
+//        
+//        let userDefaults = NSUserDefaults.standardUserDefaults()
+//        if let todoListData = userDefaults.objectForKey("todoList") as? NSData {
+//            if let storedTodoList = NSKeyedUnarchiver.unarchiveObjectWithData(todoListData) as? [YourTodo] {
+//                todoList.appendContentsOf(storedTodoList)
+//            }
+//        }
     }
     
     override func didReceiveMemoryWarning() {
@@ -82,8 +163,27 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCellWithIdentifier("todoCell", forIndexPath: indexPath)
+        //TODO
+        //cell.backgroundColor = UIColor(red: 1.0, green: 1.0, blue: 0.7, alpha:1.0)
         
-        cell.backgroundColor = UIColor(red: 1.0, green: 1.0, blue: 0.7, alpha:1.0)
+        if(backColar == "yellow"){
+            print("yellowのなka")
+            cell.backgroundColor = UIColor(red: 1.0, green: 1.0, blue: 0.7, alpha:1.0)
+            
+        }else if(backColar == "blue"){
+            cell.backgroundColor = UIColor(red: 0.8, green: 1.0, blue: 1.0, alpha:1.0)
+            
+        }else if(backColar == "white"){
+            cell.backgroundColor = UIColor(red: 1.0, green: 1.0, blue: 1.0, alpha:1.0)
+            
+        }else if(backColar == "green"){
+            cell.backgroundColor = UIColor(red: 0.6431, green: 0.9176, blue: 0, alpha: 1.0)
+            
+        }
+        
+        
+        
+        
         
         let todo = todoList[indexPath.row]
         //TOOD
@@ -203,6 +303,8 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
 
 class YourTodo: NSObject, NSCoding {
     
+    var backGroundColar: String?
+    
     var todoTitle :String?
     
     var todoDone :Bool = false
@@ -222,4 +324,17 @@ class YourTodo: NSObject, NSCoding {
     }
 }
 
+class SettingInfo: NSObject, NSCoding{
+    var backGroundColar: String?
+    override init() {
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        backGroundColar = aDecoder.decodeObjectForKey("backGroundColar") as? String
+    }
+    
+    func encodeWithCoder(aCoder: NSCoder) {
+        aCoder.encodeObject(backGroundColar, forKey: "backGroundColar")
+    }
+}
 
